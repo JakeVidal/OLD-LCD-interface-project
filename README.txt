@@ -1,0 +1,1 @@
+This program allows an MSP430 microcontroller to manipulate a shift register in order to interface with a 16x2 LCD screen.
