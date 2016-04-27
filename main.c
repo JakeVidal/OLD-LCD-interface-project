@@ -1,14 +1,19 @@
 #include <msp430.h> 
+#include "header.h"
 
 unsigned int i = 0;
 
 int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;	//Stop watchdog timer
+	//Stop watchdog timer
+    WDTCTL = WDTPW | WDTHOLD;
 
-    P1DIR |= 0x01; //Set P1.0 to output
+    //Set P1.0 to output
+    P1DIR |= 0x01;
 
-    while(1){ //Loop forever.
+    //Loop forever
+    while(1){
     P1OUT ^= 0x01;
-    for(i=0; i<20000; i++);//Delay on the blink
+    //Delay on the blink
+    for(i=0; i<20000; i++);
     }
 }
