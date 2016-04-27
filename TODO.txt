@@ -1,0 +1,3 @@
+1-write and test a serial communication function on a shift register using LEDs
+2-write functions to interface with LCD pins in order to properly transfer data to its registers
+3- write code that allows meaningful data to be sent to the LCD (putting a string into the code produces the same string on the LCD)
