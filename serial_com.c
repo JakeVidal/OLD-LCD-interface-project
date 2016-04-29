@@ -5,8 +5,8 @@
 //Function to allow serial communication with shift register
 void serial_com(uint8_t data_pin, uint8_t clk_pin, uint8_t value){
 	// Definitions of variables
-	uint8_t bytemask = 0b01, k;
-
+	uint8_t bytemask = 0b0001, k;
+	// Loop that iterates through value to send it 
 	for(k = 8; k > 0; k--){
 		// Set data_pin to output current 1/8th of value
 		P1OUT &= !data_pin;
