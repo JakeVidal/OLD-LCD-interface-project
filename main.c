@@ -2,10 +2,10 @@
 #include <msp430.h>
 #include "header.h"
 
-static const uint8_t clk_pin = 0b00000001;
-static const uint8_t data_pin = 0b00000010;
-static const uint8_t latch_pin = 0b00000100;
-static const uint8_t switch_pin = 0b00001000;
+static const uint8_t clk_pin = 0x1;
+static const uint8_t data_pin = 0x2;
+static const uint8_t latch_pin = 0x4;
+static const uint8_t switch_pin = 0x8;
 
 // Main program function
 int main(void) {
@@ -22,7 +22,7 @@ int main(void) {
     P1REN |= switch_pin;
     P1IE |= switch_pin;
     P1IES |= switch_pin;
-    P1IFG = 0b00000000;
+    P1IFG = 0x0;
 
 
     // Loop forever with Interrupts enabled
@@ -38,7 +38,7 @@ __interrupt void Port_1(void){
 	P1OUT &= ~latch_pin;
 
 	// Outputs an 8-bit value in serial through P1.1
-	serial_com(data_pin, clk_pin, 0b10101100);
+	serial_com(data_pin, clk_pin, 0xac);
 
 	// Set latch pin to high
 	P1OUT |= latch_pin;

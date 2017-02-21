@@ -6,7 +6,7 @@
 void serial_com(uint8_t data_pin, uint8_t clk_pin, uint8_t value){
 
 	// Definitions of variables
-	uint8_t bytemask = 0b00000001, k;
+	uint8_t bytemask = 0x1, k;
 
 	// Loop that iterates through value to send it
 	for(k = 8; k > 0; k--){
