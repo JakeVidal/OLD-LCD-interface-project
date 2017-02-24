@@ -33,9 +33,9 @@ int main(void) {
 #pragma vector = PORT1_VECTOR
 __interrupt void Port_1(void){
 
-	//Send data to LCD
-  	write_string("Hello World");
+    //Send data to LCD
+    write_string("Hello World");
 
-	//Clear interrupt flag for P1.3
-	P1IFG &= ~switch_pin;
+    //Clear interrupt flag for P1.3
+    P1IFG &= ~switch_pin;
 }
