@@ -2,47 +2,40 @@
 #include <msp430.h>
 #include "header.h"
 
-static const uint8_t clk_pin = 0x1;
-static const uint8_t data_pin = 0x2;
-static const uint8_t latch_pin = 0x4;
-static const uint8_t switch_pin = 0x8;
-
-// Main program function
+//Main program function
 int main(void) {
 
-    // Stop watchdog timer to prevent timeout reset
+    //Stop watchdog timer to prevent timeout reset
     WDTCTL = WDTPW | WDTHOLD;
 
-    // Initialize P1.0, P1.1 and P1.2 to output as clk_pin, data_pin and latch_pin then enable pullup resistors
-    P1DIR |= (data_pin | clk_pin | latch_pin);
-    P1REN |= (data_pin | clk_pin | latch_pin);
+    //Initialize P1.0, P1.1, P1.2, P1.5, P1.6 and P1.7 to output then enable pullup resistors
+    P1DIR |= (clk_pin | data_pin | latch_pin | reg_sel_pin | rw_sel_pin | enable_pin);
+    P1REN |= (clk_pin | data_pin | latch_pin | reg_sel_pin | rw_sel_pin | enable_pin | switch_pin | busy_check_pin);
 
-    // set P1.3 as input, enable pullup resistors, enable interrupt, set to trigger on high/low edge (for button to work) and clear interrupt flags
+    //Set P1.0 and P1.3 as input 
     P1DIR &= ~switch_pin;
-    P1REN |= switch_pin;
+    P1DIR &= ~busy_check_pin;
+
+    //Enable interrupt, set to trigger on high/low edge (for button to work) and clear interrupt flags
     P1IE |= switch_pin;
     P1IES |= switch_pin;
     P1IFG = 0x0;
 
-
-    // Loop forever with Interrupts enabled
+    //Initialize the LCD
+    LCD_init();
+    
+    //Loop forever with Interrupts enabled
     __enable_interrupt();
     while(1){}
 }
 
-// Port 1 Interrupt service routine
+//Port 1 Interrupt service routine
 #pragma vector = PORT1_VECTOR
 __interrupt void Port_1(void){
 
-	// Set latch pin to low
-	P1OUT &= ~latch_pin;
+	//Send data to LCD
+  	write_string("Hello World");
 
-	// Outputs an 8-bit value in serial through P1.1
-	serial_com(data_pin, clk_pin, 0xac);
-
-	// Set latch pin to high
-	P1OUT |= latch_pin;
-    
-	// Clear interrupt flag for P1.3
+	//Clear interrupt flag for P1.3
 	P1IFG &= ~switch_pin;
 }
