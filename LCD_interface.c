@@ -11,8 +11,8 @@
 
 //Delay function
 void delay(uint8_t t){
-    for(j = 0; j <= t; j++){
-        for(i = 0; i < 100; i++);
+    for(uint8_t j = 0; j <= t; j++){
+        for(uint8_t i = 0; i < 100; i++);
     }
 }
 
