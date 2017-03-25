@@ -8,7 +8,7 @@ int main(void) {
     //Stop watchdog timer to prevent timeout reset
     WDTCTL = WDTPW | WDTHOLD;
 
-    //Initialize P1.0, P1.1, P1.2, P1.5, P1.6 and P1.7 to output then enable pullup resistors
+    //Initialize P1.1, P1.2, P1.4, P1.5, P1.6 and P1.7 to output then enable pullup resistors
     P1DIR |= (clk_pin | data_pin | latch_pin | reg_sel_pin | rw_sel_pin | enable_pin);
     P1REN |= (clk_pin | data_pin | latch_pin | reg_sel_pin | rw_sel_pin | enable_pin | switch_pin | busy_check_pin);
 
